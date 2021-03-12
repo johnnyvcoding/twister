@@ -37,10 +37,18 @@ def get_recent(user):
             print('this is the type of tweet ', type(tweet))
         return arr
 
+def follow_user(user):
+    api.create_friendship(user)
+
 def fun_test ():
-    arr = []
-    arr = api.home_timeline()
-    return arr
+    for tweet in tweepy.Cursor(api.user_timeline, screen_name="WellPaidGeek").items(1):
+        return tweet._json
+
+@app.route('/')
+def hello ():
+    return jsonify(fun_test())
+
+
 
 @app.route('/retweet/<name>')
 def main (name):
@@ -48,7 +56,7 @@ def main (name):
 
 
 @app.route('/fav/<name>/<quantity>')
-def main(name, quantity):
+def ok(name, quantity):
     favorite_recent_tweets(name, quantity)
 
 
